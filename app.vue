@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '@fontsource/dotgothic16';
 import './app.css';
-import {useWindows} from '~/stores/window_states';
+import { useWindows } from '~/stores/window_states';
 
 const windows = useWindows();
 </script>
@@ -15,20 +15,21 @@ const windows = useWindows();
     <img class="bgImage" src="/tiledbg.svg" />
 
     <div class="main">
-      <MainWindow />
-      <BaseWindow v-if="windows.about" :initial_x="32" :initial_y="32">
-        Lorem ipsum dolor sit amet,
-        <div>
-          consectetur adipiscing elit,
-        </div>
-        <div>
-          sed do eiusmod tempor incididunt
-        </div>
-        <div>
-          ut labore et dolore magna aliqua.
-        </div>
-      </BaseWindow>
-
+      <ClientOnly>
+        <MainWindow />
+        <BaseWindow v-if="windows.about" :initial_x="32" :initial_y="32">
+          Lorem ipsum dolor sit amet,
+          <div>
+            consectetur adipiscing elit,
+          </div>
+          <div>
+            sed do eiusmod tempor incididunt
+          </div>
+          <div>
+            ut labore et dolore magna aliqua.
+          </div>
+        </BaseWindow>
+      </ClientOnly>
     </div>
   </div>
 </template>
