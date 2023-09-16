@@ -11,7 +11,7 @@ let windows = useWindows();
 
 console.log(width1, height1)
 
-function showAbout() {windows.about = true}
+function showAbout() {windows.about = !windows.about}
 </script>
 
 <template>
