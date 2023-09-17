@@ -1,71 +1,71 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useDraggable } from '@vueuse/core';
+import { ref } from 'vue';
+import { UseDraggable } from '@vueuse/components';
 
-
-const el = ref<HTMLElement | null>(null)
+const handle = ref<HTMLElement | null>(null)
 
 const props = defineProps({
     initial_x: {
         type: Number,
-        default: 0
+        default: 0,
     },
     initial_y: {
         type: Number,
-        default: 0
+        default: 0,
     },
 })
 
-console.log(props)
-
-const {style} = useDraggable(el, {
-    initialValue: { x: props.initial_x, y: props.initial_y},
-})
+let visibility = defineModel<Boolean>({default: true});
 
 </script>
 
 <template>
-
-    <div ref="el" :style="style" class="window" style="position: fixed">
-        <span class="fake-controls">
-            <div class="controls-left">
-                <div class="button"></div>
+    <UseDraggable :handle="handle" style="position: fixed" :initialValue="{x: props.initial_x, y: props.initial_y}" >
+        <div class="window" v-if="visibility">
+            <div ref="handle" class="controls-wrapper">
+                <div class="controls controls-left">
+                    <img src="/fnaf_purpleguy.png" alt="OMG ITS THE PURPLE GUY FROM FNAF THE BITE OF 87" draggable="false">
+                </div>
+                <div class="controls controls-right">
+                    <img src="/mini.png" alt="minimize button" srcset="" @click="" draggable="false">
+                    <img src="/maxi.png" alt="maximize button" srcset="" draggable="false">
+                    <img src="/bye.png" alt="close button" srcset="" @click="visibility = !visibility" draggable="false">
+                </div>
             </div>
-            <div class="controls-right">
-                <div class="minimize-button"></div>
-                <div class="maximize-button"></div>
-                <div class="close-button"></div>
+            <div class="window-content">
+                <slot></slot>
             </div>
-        </span>
-        <div class="window-content">
-            <slot></slot>
+            <div>
+                <img class="decorative" src="/tplink_deco.png" alt="my home router is the deco m5" draggable="false"/>
+            </div>
         </div>
-        <img class="decorative" src="/decorations.svg" />
-    </div>
+    </UseDraggable>
 </template>
 
 <style scoped>
+img {
+    image-rendering: pixelated;
+    user-select: none;
+    display: block; /* frick you inline-block give me my time back */
+    height: fit-content;
+}
 .window {
   margin: auto 0;
-  padding: 6px;
-  padding-top: 0px;
-  padding-bottom: 5px;
+  padding: 0 6px;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   background-color: var(--aqua);
   border: var(--purple) 2px solid;
   box-shadow: 5px 5px 0 rgba(77, 35, 139, 0.4);
-  /* box-sizing: border-box; */
 }
 
-.fake-controls {
+.controls-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 21px;
     padding: 3px;
-    margin-top: 8px;
+    padding-bottom: 3px;
+    margin-top: 6px; /* 2+4 to compensate for outline */
     margin-bottom: 8px;
     background-color: var(--pink);
     outline: var(--purple) 2px solid;
@@ -76,46 +76,23 @@ const {style} = useDraggable(el, {
     outline: var(--purple) 2px solid;
 }
 
-.controls-left {
-}
-
-.controls-right {
-    width: 47px;
-    margin-right: 24px;
+.controls {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    column-gap: 4px;
 }
 
-.button {
-  box-shadow: 3px 3px 0 0 rgba(77,34,198,1), 4px 3px 0 0 rgba(77,34,198,1), 5px 3px 0 0 rgba(77,34,198,1), 6px 3px 0 0 rgba(77,34,198,1), 7px 3px 0 0 rgba(77,34,198,1), 8px 3px 0 0 rgba(77,34,198,1), 9px 3px 0 0 rgba(77,34,198,1), 10px 3px 0 0 rgba(77,34,198,1), 11px 3px 0 0 rgba(77,34,198,1), 12px 3px 0 0 rgba(77,34,198,1), 13px 3px 0 0 rgba(77,34,198,1), 14px 3px 0 0 rgba(77,34,198,1), 15px 3px 0 0 rgba(77,34,198,1), 16px 3px 0 0 rgba(77,34,198,1), 17px 3px 0 0 rgba(77,34,198,1), 18px 3px 0 0 rgba(77,34,198,1), 3px 4px 0 0 rgba(77,34,198,1), 4px 4px 0 0 rgba(77,34,198,1), 5px 4px 0 0 rgba(77,34,198,1), 6px 4px 0 0 rgba(77,34,198,1), 7px 4px 0 0 rgba(77,34,198,1), 8px 4px 0 0 rgba(77,34,198,1), 9px 4px 0 0 rgba(77,34,198,1), 10px 4px 0 0 rgba(77,34,198,1), 11px 4px 0 0 rgba(77,34,198,1), 12px 4px 0 0 rgba(77,34,198,1), 13px 4px 0 0 rgba(77,34,198,1), 14px 4px 0 0 rgba(77,34,198,1), 15px 4px 0 0 rgba(77,34,198,1), 16px 4px 0 0 rgba(77,34,198,1), 17px 4px 0 0 rgba(77,34,198,1), 18px 4px 0 0 rgba(77,34,198,1), 3px 5px 0 0 rgba(77,34,198,1), 4px 5px 0 0 rgba(77,34,198,1), 5px 5px 0 0 rgba(77,34,198,1), 6px 5px 0 0 rgba(77,34,198,1), 7px 5px 0 0 rgba(77,34,198,1), 8px 5px 0 0 rgba(77,34,198,1), 9px 5px 0 0 rgba(77,34,198,1), 10px 5px 0 0 rgba(77,34,198,1), 11px 5px 0 0 rgba(77,34,198,1), 12px 5px 0 0 rgba(77,34,198,1), 13px 5px 0 0 rgba(77,34,198,1), 14px 5px 0 0 rgba(77,34,198,1), 15px 5px 0 0 rgba(77,34,198,1), 16px 5px 0 0 rgba(77,34,198,1), 17px 5px 0 0 rgba(77,34,198,1), 18px 5px 0 0 rgba(77,34,198,1), 3px 6px 0 0 rgba(77,34,198,1), 4px 6px 0 0 rgba(77,34,198,1), 5px 6px 0 0 rgba(77,34,198,1), 6px 6px 0 0 rgba(77,34,198,1), 7px 6px 0 0 rgba(77,34,198,1), 8px 6px 0 0 rgba(77,34,198,1), 9px 6px 0 0 rgba(77,34,198,1), 10px 6px 0 0 rgba(77,34,198,1), 11px 6px 0 0 rgba(77,34,198,1), 12px 6px 0 0 rgba(77,34,198,1), 13px 6px 0 0 rgba(77,34,198,1), 14px 6px 0 0 rgba(77,34,198,1), 15px 6px 0 0 rgba(77,34,198,1), 16px 6px 0 0 rgba(77,34,198,1), 17px 6px 0 0 rgba(77,34,198,1), 18px 6px 0 0 rgba(77,34,198,1), 3px 7px 0 0 rgba(77,34,198,1), 4px 7px 0 0 rgba(77,34,198,1), 5px 7px 0 0 rgba(77,34,198,1), 6px 7px 0 0 rgba(77,34,198,1), 7px 7px 0 0 rgba(77,34,198,1), 8px 7px 0 0 rgba(77,34,198,1), 9px 7px 0 0 rgba(77,34,198,1), 10px 7px 0 0 rgba(77,34,198,1), 11px 7px 0 0 rgba(77,34,198,1), 12px 7px 0 0 rgba(77,34,198,1), 13px 7px 0 0 rgba(77,34,198,1), 14px 7px 0 0 rgba(77,34,198,1), 15px 7px 0 0 rgba(77,34,198,1), 16px 7px 0 0 rgba(77,34,198,1), 17px 7px 0 0 rgba(77,34,198,1), 18px 7px 0 0 rgba(77,34,198,1), 3px 8px 0 0 rgba(77,34,198,1), 4px 8px 0 0 rgba(77,34,198,1), 5px 8px 0 0 rgba(77,34,198,1), 6px 8px 0 0 rgba(77,34,198,1), 7px 8px 0 0 rgba(77,34,198,1), 8px 8px 0 0 rgba(77,34,198,1), 9px 8px 0 0 rgba(77,34,198,1), 10px 8px 0 0 rgba(77,34,198,1), 11px 8px 0 0 rgba(77,34,198,1), 12px 8px 0 0 rgba(77,34,198,1), 13px 8px 0 0 rgba(77,34,198,1), 14px 8px 0 0 rgba(77,34,198,1), 15px 8px 0 0 rgba(77,34,198,1), 16px 8px 0 0 rgba(77,34,198,1), 17px 8px 0 0 rgba(77,34,198,1), 18px 8px 0 0 rgba(77,34,198,1), 3px 9px 0 0 rgba(77,34,198,1), 4px 9px 0 0 rgba(77,34,198,1), 5px 9px 0 0 rgba(77,34,198,1), 6px 9px 0 0 rgba(77,34,198,1), 7px 9px 0 0 rgba(77,34,198,1), 8px 9px 0 0 rgba(77,34,198,1), 9px 9px 0 0 rgba(77,34,198,1), 10px 9px 0 0 rgba(77,34,198,1), 11px 9px 0 0 rgba(77,34,198,1), 12px 9px 0 0 rgba(77,34,198,1), 13px 9px 0 0 rgba(77,34,198,1), 14px 9px 0 0 rgba(77,34,198,1), 15px 9px 0 0 rgba(77,34,198,1), 16px 9px 0 0 rgba(77,34,198,1), 17px 9px 0 0 rgba(77,34,198,1), 18px 9px 0 0 rgba(77,34,198,1), 3px 10px 0 0 rgba(77,34,198,1), 4px 10px 0 0 rgba(77,34,198,1), 5px 10px 0 0 rgba(77,34,198,1), 6px 10px 0 0 rgba(77,34,198,1), 7px 10px 0 0 rgba(77,34,198,1), 8px 10px 0 0 rgba(77,34,198,1), 9px 10px 0 0 rgba(77,34,198,1), 10px 10px 0 0 rgba(77,34,198,1), 11px 10px 0 0 rgba(77,34,198,1), 12px 10px 0 0 rgba(77,34,198,1), 13px 10px 0 0 rgba(77,34,198,1), 14px 10px 0 0 rgba(77,34,198,1), 15px 10px 0 0 rgba(77,34,198,1), 16px 10px 0 0 rgba(77,34,198,1), 17px 10px 0 0 rgba(77,34,198,1), 18px 10px 0 0 rgba(77,34,198,1), 3px 11px 0 0 rgba(77,34,198,1), 4px 11px 0 0 rgba(77,34,198,1), 5px 11px 0 0 rgba(77,34,198,1), 6px 11px 0 0 rgba(77,34,198,1), 7px 11px 0 0 rgba(77,34,198,1), 8px 11px 0 0 rgba(77,34,198,1), 9px 11px 0 0 rgba(77,34,198,1), 10px 11px 0 0 rgba(77,34,198,1), 11px 11px 0 0 rgba(77,34,198,1), 12px 11px 0 0 rgba(77,34,198,1), 13px 11px 0 0 rgba(77,34,198,1), 14px 11px 0 0 rgba(77,34,198,1), 15px 11px 0 0 rgba(77,34,198,1), 16px 11px 0 0 rgba(77,34,198,1), 17px 11px 0 0 rgba(77,34,198,1), 18px 11px 0 0 rgba(77,34,198,1), 3px 12px 0 0 rgba(77,34,198,1), 4px 12px 0 0 rgba(77,34,198,1), 5px 12px 0 0 rgba(77,34,198,1), 6px 12px 0 0 rgba(77,34,198,1), 7px 12px 0 0 rgba(77,34,198,1), 8px 12px 0 0 rgba(77,34,198,1), 9px 12px 0 0 rgba(77,34,198,1), 10px 12px 0 0 rgba(77,34,198,1), 11px 12px 0 0 rgba(77,34,198,1), 12px 12px 0 0 rgba(77,34,198,1), 13px 12px 0 0 rgba(77,34,198,1), 14px 12px 0 0 rgba(77,34,198,1), 15px 12px 0 0 rgba(77,34,198,1), 16px 12px 0 0 rgba(77,34,198,1), 17px 12px 0 0 rgba(77,34,198,1), 18px 12px 0 0 rgba(77,34,198,1), 3px 13px 0 0 rgba(77,34,198,1), 4px 13px 0 0 rgba(77,34,198,1), 5px 13px 0 0 rgba(77,34,198,1), 6px 13px 0 0 rgba(77,34,198,1), 7px 13px 0 0 rgba(77,34,198,1), 8px 13px 0 0 rgba(77,34,198,1), 9px 13px 0 0 rgba(77,34,198,1), 10px 13px 0 0 rgba(77,34,198,1), 11px 13px 0 0 rgba(77,34,198,1), 12px 13px 0 0 rgba(77,34,198,1), 13px 13px 0 0 rgba(77,34,198,1), 14px 13px 0 0 rgba(77,34,198,1), 15px 13px 0 0 rgba(77,34,198,1), 16px 13px 0 0 rgba(77,34,198,1), 17px 13px 0 0 rgba(77,34,198,1), 18px 13px 0 0 rgba(77,34,198,1), 3px 14px 0 0 rgba(77,34,198,1), 4px 14px 0 0 rgba(77,34,198,1), 5px 14px 0 0 rgba(77,34,198,1), 6px 14px 0 0 rgba(77,34,198,1), 7px 14px 0 0 rgba(77,34,198,1), 8px 14px 0 0 rgba(77,34,198,1), 9px 14px 0 0 rgba(77,34,198,1), 10px 14px 0 0 rgba(77,34,198,1), 11px 14px 0 0 rgba(77,34,198,1), 12px 14px 0 0 rgba(77,34,198,1), 13px 14px 0 0 rgba(77,34,198,1), 14px 14px 0 0 rgba(77,34,198,1), 15px 14px 0 0 rgba(77,34,198,1), 16px 14px 0 0 rgba(77,34,198,1), 17px 14px 0 0 rgba(77,34,198,1), 18px 14px 0 0 rgba(77,34,198,1), 3px 15px 0 0 rgba(77,34,198,1), 4px 15px 0 0 rgba(77,34,198,1), 5px 15px 0 0 rgba(77,34,198,1), 6px 15px 0 0 rgba(77,34,198,1), 7px 15px 0 0 rgba(77,34,198,1), 8px 15px 0 0 rgba(77,34,198,1), 9px 15px 0 0 rgba(77,34,198,1), 10px 15px 0 0 rgba(77,34,198,1), 11px 15px 0 0 rgba(77,34,198,1), 12px 15px 0 0 rgba(77,34,198,1), 13px 15px 0 0 rgba(77,34,198,1), 14px 15px 0 0 rgba(77,34,198,1), 15px 15px 0 0 rgba(77,34,198,1), 16px 15px 0 0 rgba(77,34,198,1), 17px 15px 0 0 rgba(77,34,198,1), 18px 15px 0 0 rgba(77,34,198,1), 3px 16px 0 0 rgba(77,34,198,1), 4px 16px 0 0 rgba(77,34,198,1), 5px 16px 0 0 rgba(77,34,198,1), 6px 16px 0 0 rgba(77,34,198,1), 7px 16px 0 0 rgba(77,34,198,1), 8px 16px 0 0 rgba(77,34,198,1), 9px 16px 0 0 rgba(77,34,198,1), 10px 16px 0 0 rgba(77,34,198,1), 11px 16px 0 0 rgba(77,34,198,1), 12px 16px 0 0 rgba(77,34,198,1), 13px 16px 0 0 rgba(77,34,198,1), 14px 16px 0 0 rgba(77,34,198,1), 15px 16px 0 0 rgba(77,34,198,1), 16px 16px 0 0 rgba(77,34,198,1), 17px 16px 0 0 rgba(77,34,198,1), 18px 16px 0 0 rgba(77,34,198,1), 3px 17px 0 0 rgba(77,34,198,1), 4px 17px 0 0 rgba(77,34,198,1), 5px 17px 0 0 rgba(77,34,198,1), 6px 17px 0 0 rgba(77,34,198,1), 7px 17px 0 0 rgba(77,34,198,1), 8px 17px 0 0 rgba(77,34,198,1), 9px 17px 0 0 rgba(77,34,198,1), 10px 17px 0 0 rgba(77,34,198,1), 11px 17px 0 0 rgba(77,34,198,1), 12px 17px 0 0 rgba(77,34,198,1), 13px 17px 0 0 rgba(77,34,198,1), 14px 17px 0 0 rgba(77,34,198,1), 15px 17px 0 0 rgba(77,34,198,1), 16px 17px 0 0 rgba(77,34,198,1), 17px 17px 0 0 rgba(77,34,198,1), 18px 17px 0 0 rgba(77,34,198,1), 3px 18px 0 0 rgba(77,34,198,1), 4px 18px 0 0 rgba(77,34,198,1), 5px 18px 0 0 rgba(77,34,198,1), 6px 18px 0 0 rgba(77,34,198,1), 7px 18px 0 0 rgba(77,34,198,1), 8px 18px 0 0 rgba(77,34,198,1), 9px 18px 0 0 rgba(77,34,198,1), 10px 18px 0 0 rgba(77,34,198,1), 11px 18px 0 0 rgba(77,34,198,1), 12px 18px 0 0 rgba(77,34,198,1), 13px 18px 0 0 rgba(77,34,198,1), 14px 18px 0 0 rgba(77,34,198,1), 15px 18px 0 0 rgba(77,34,198,1), 16px 18px 0 0 rgba(77,34,198,1), 17px 18px 0 0 rgba(77,34,198,1), 18px 18px 0 0 rgba(77,34,198,1);
-  height: 1px;
-  width: 1px;
+.controls-left {
+    padding-bottom: 2px;
+    padding-top: 2px;
+    padding-left: 4px;
 }
-
-.minimize-button {
-  box-shadow: 1px 1px 0 0 rgba(77,35,193,1), 2px 1px 0 0 rgba(77,35,193,1), 3px 1px 0 0 rgba(77,35,193,1), 4px 1px 0 0 rgba(77,35,193,1), 5px 1px 0 0 rgba(77,35,193,1), 6px 1px 0 0 rgba(77,35,193,1), 7px 1px 0 0 rgba(77,35,193,1), 8px 1px 0 0 rgba(77,35,193,1), 9px 1px 0 0 rgba(77,35,193,1), 10px 1px 0 0 rgba(77,35,193,1), 11px 1px 0 0 rgba(77,35,193,1), 12px 1px 0 0 rgba(77,35,193,1), 13px 1px 0 0 rgba(77,35,193,1), 14px 1px 0 0 rgba(77,35,193,1), 15px 1px 0 0 rgba(77,35,193,1), 16px 1px 0 0 rgba(77,35,193,1), 17px 1px 0 0 rgba(77,35,193,1), 18px 1px 0 0 rgba(77,35,193,1), 19px 1px 0 0 rgba(77,35,193,1), 20px 1px 0 0 rgba(77,35,193,1), 1px 2px 0 0 rgba(77,35,193,1), 2px 2px 0 0 rgba(77,35,193,1), 3px 2px 0 0 rgba(77,35,193,1), 4px 2px 0 0 rgba(77,35,193,1), 5px 2px 0 0 rgba(77,35,193,1), 6px 2px 0 0 rgba(77,35,193,1), 7px 2px 0 0 rgba(77,35,193,1), 8px 2px 0 0 rgba(77,35,193,1), 9px 2px 0 0 rgba(77,35,193,1), 10px 2px 0 0 rgba(77,35,193,1), 11px 2px 0 0 rgba(77,35,193,1), 12px 2px 0 0 rgba(77,35,193,1), 13px 2px 0 0 rgba(77,35,193,1), 14px 2px 0 0 rgba(77,35,193,1), 15px 2px 0 0 rgba(77,35,193,1), 16px 2px 0 0 rgba(77,35,193,1), 17px 2px 0 0 rgba(77,35,193,1), 18px 2px 0 0 rgba(77,35,193,1), 19px 2px 0 0 rgba(77,35,193,1), 20px 2px 0 0 rgba(77,35,193,1), 1px 3px 0 0 rgba(77,35,193,1), 2px 3px 0 0 rgba(77,35,193,1), 19px 3px 0 0 rgba(77,35,193,1), 20px 3px 0 0 rgba(77,35,193,1), 1px 4px 0 0 rgba(77,35,193,1), 2px 4px 0 0 rgba(77,35,193,1), 19px 4px 0 0 rgba(77,35,193,1), 20px 4px 0 0 rgba(77,35,193,1), 1px 5px 0 0 rgba(77,35,193,1), 2px 5px 0 0 rgba(77,35,193,1), 19px 5px 0 0 rgba(77,35,193,1), 20px 5px 0 0 rgba(77,35,193,1), 1px 6px 0 0 rgba(77,35,193,1), 2px 6px 0 0 rgba(77,35,193,1), 19px 6px 0 0 rgba(77,35,193,1), 20px 6px 0 0 rgba(77,35,193,1), 1px 7px 0 0 rgba(77,35,193,1), 2px 7px 0 0 rgba(77,35,193,1), 19px 7px 0 0 rgba(77,35,193,1), 20px 7px 0 0 rgba(77,35,193,1), 1px 8px 0 0 rgba(77,35,193,1), 2px 8px 0 0 rgba(77,35,193,1), 19px 8px 0 0 rgba(77,35,193,1), 20px 8px 0 0 rgba(77,35,193,1), 1px 9px 0 0 rgba(77,35,193,1), 2px 9px 0 0 rgba(77,35,193,1), 19px 9px 0 0 rgba(77,35,193,1), 20px 9px 0 0 rgba(77,35,193,1), 1px 10px 0 0 rgba(77,35,193,1), 2px 10px 0 0 rgba(77,35,193,1), 19px 10px 0 0 rgba(77,35,193,1), 20px 10px 0 0 rgba(77,35,193,1), 1px 11px 0 0 rgba(77,35,193,1), 2px 11px 0 0 rgba(77,35,193,1), 19px 11px 0 0 rgba(77,35,193,1), 20px 11px 0 0 rgba(77,35,193,1), 1px 12px 0 0 rgba(77,35,193,1), 2px 12px 0 0 rgba(77,35,193,1), 19px 12px 0 0 rgba(77,35,193,1), 20px 12px 0 0 rgba(77,35,193,1), 1px 13px 0 0 rgba(77,35,193,1), 2px 13px 0 0 rgba(77,35,193,1), 19px 13px 0 0 rgba(77,35,193,1), 20px 13px 0 0 rgba(77,35,193,1), 1px 14px 0 0 rgba(77,35,193,1), 2px 14px 0 0 rgba(77,35,193,1), 19px 14px 0 0 rgba(77,35,193,1), 20px 14px 0 0 rgba(77,35,193,1), 1px 15px 0 0 rgba(77,35,193,1), 2px 15px 0 0 rgba(77,35,193,1), 6px 15px 0 0 rgba(77,35,193,1), 7px 15px 0 0 rgba(77,35,193,1), 8px 15px 0 0 rgba(77,35,193,1), 9px 15px 0 0 rgba(77,35,193,1), 10px 15px 0 0 rgba(77,35,193,1), 11px 15px 0 0 rgba(77,35,193,1), 12px 15px 0 0 rgba(77,35,193,1), 19px 15px 0 0 rgba(77,35,193,1), 20px 15px 0 0 rgba(77,35,193,1), 1px 16px 0 0 rgba(77,35,193,1), 2px 16px 0 0 rgba(77,35,193,1), 6px 16px 0 0 rgba(77,35,193,1), 7px 16px 0 0 rgba(77,35,193,1), 8px 16px 0 0 rgba(77,35,193,1), 9px 16px 0 0 rgba(77,35,193,1), 10px 16px 0 0 rgba(77,35,193,1), 11px 16px 0 0 rgba(77,35,193,1), 12px 16px 0 0 rgba(77,35,193,1), 19px 16px 0 0 rgba(77,35,193,1), 20px 16px 0 0 rgba(77,35,193,1), 1px 17px 0 0 rgba(77,35,193,1), 2px 17px 0 0 rgba(77,35,193,1), 19px 17px 0 0 rgba(77,35,193,1), 20px 17px 0 0 rgba(77,35,193,1), 1px 18px 0 0 rgba(77,35,193,1), 2px 18px 0 0 rgba(77,35,193,1), 19px 18px 0 0 rgba(77,35,193,1), 20px 18px 0 0 rgba(77,35,193,1), 1px 19px 0 0 rgba(77,35,193,1), 2px 19px 0 0 rgba(77,35,193,1), 3px 19px 0 0 rgba(77,35,193,1), 4px 19px 0 0 rgba(77,35,193,1), 5px 19px 0 0 rgba(77,35,193,1), 6px 19px 0 0 rgba(77,35,193,1), 7px 19px 0 0 rgba(77,35,193,1), 8px 19px 0 0 rgba(77,35,193,1), 9px 19px 0 0 rgba(77,35,193,1), 10px 19px 0 0 rgba(77,35,193,1), 11px 19px 0 0 rgba(77,35,193,1), 12px 19px 0 0 rgba(77,35,193,1), 13px 19px 0 0 rgba(77,35,193,1), 14px 19px 0 0 rgba(77,35,193,1), 15px 19px 0 0 rgba(77,35,193,1), 16px 19px 0 0 rgba(77,35,193,1), 17px 19px 0 0 rgba(77,35,193,1), 18px 19px 0 0 rgba(77,35,193,1), 19px 19px 0 0 rgba(77,35,193,1), 20px 19px 0 0 rgba(77,35,193,1), 1px 20px 0 0 rgba(77,35,193,1), 2px 20px 0 0 rgba(77,35,193,1), 3px 20px 0 0 rgba(77,35,193,1), 4px 20px 0 0 rgba(77,35,193,1), 5px 20px 0 0 rgba(77,35,193,1), 6px 20px 0 0 rgba(77,35,193,1), 7px 20px 0 0 rgba(77,35,193,1), 8px 20px 0 0 rgba(77,35,193,1), 9px 20px 0 0 rgba(77,35,193,1), 10px 20px 0 0 rgba(77,35,193,1), 11px 20px 0 0 rgba(77,35,193,1), 12px 20px 0 0 rgba(77,35,193,1), 13px 20px 0 0 rgba(77,35,193,1), 14px 20px 0 0 rgba(77,35,193,1), 15px 20px 0 0 rgba(77,35,193,1), 16px 20px 0 0 rgba(77,35,193,1), 17px 20px 0 0 rgba(77,35,193,1), 18px 20px 0 0 rgba(77,35,193,1), 19px 20px 0 0 rgba(77,35,193,1), 20px 20px 0 0 rgba(77,35,193,1);
-  height: 1px;
-  width: 1px;
-}
-
-.maximize-button {
-  box-shadow: 1px 1px 0 0 rgba(77,35,193,1), 2px 1px 0 0 rgba(77,35,193,1), 3px 1px 0 0 rgba(77,35,193,1), 4px 1px 0 0 rgba(77,35,193,1), 5px 1px 0 0 rgba(77,35,193,1), 6px 1px 0 0 rgba(77,35,193,1), 7px 1px 0 0 rgba(77,35,193,1), 8px 1px 0 0 rgba(77,35,193,1), 9px 1px 0 0 rgba(77,35,193,1), 10px 1px 0 0 rgba(77,35,193,1), 11px 1px 0 0 rgba(77,35,193,1), 12px 1px 0 0 rgba(77,35,193,1), 13px 1px 0 0 rgba(77,35,193,1), 14px 1px 0 0 rgba(77,35,193,1), 15px 1px 0 0 rgba(77,35,193,1), 16px 1px 0 0 rgba(77,35,193,1), 17px 1px 0 0 rgba(77,35,193,1), 18px 1px 0 0 rgba(77,35,193,1), 19px 1px 0 0 rgba(77,35,193,1), 20px 1px 0 0 rgba(77,35,193,1), 1px 2px 0 0 rgba(77,35,193,1), 2px 2px 0 0 rgba(77,35,193,1), 3px 2px 0 0 rgba(77,35,193,1), 4px 2px 0 0 rgba(77,35,193,1), 5px 2px 0 0 rgba(77,35,193,1), 6px 2px 0 0 rgba(77,35,193,1), 7px 2px 0 0 rgba(77,35,193,1), 8px 2px 0 0 rgba(77,35,193,1), 9px 2px 0 0 rgba(77,35,193,1), 10px 2px 0 0 rgba(77,35,193,1), 11px 2px 0 0 rgba(77,35,193,1), 12px 2px 0 0 rgba(77,35,193,1), 13px 2px 0 0 rgba(77,35,193,1), 14px 2px 0 0 rgba(77,35,193,1), 15px 2px 0 0 rgba(77,35,193,1), 16px 2px 0 0 rgba(77,35,193,1), 17px 2px 0 0 rgba(77,35,193,1), 18px 2px 0 0 rgba(77,35,193,1), 19px 2px 0 0 rgba(77,35,193,1), 20px 2px 0 0 rgba(77,35,193,1), 1px 3px 0 0 rgba(77,35,193,1), 2px 3px 0 0 rgba(77,35,193,1), 19px 3px 0 0 rgba(77,35,193,1), 20px 3px 0 0 rgba(77,35,193,1), 1px 4px 0 0 rgba(77,35,193,1), 2px 4px 0 0 rgba(77,35,193,1), 19px 4px 0 0 rgba(77,35,193,1), 20px 4px 0 0 rgba(77,35,193,1), 1px 5px 0 0 rgba(77,35,193,1), 2px 5px 0 0 rgba(77,35,193,1), 5px 5px 0 0 rgba(77,35,193,1), 6px 5px 0 0 rgba(77,35,193,1), 7px 5px 0 0 rgba(77,35,193,1), 8px 5px 0 0 rgba(77,35,193,1), 9px 5px 0 0 rgba(77,35,193,1), 10px 5px 0 0 rgba(77,35,193,1), 11px 5px 0 0 rgba(77,35,193,1), 12px 5px 0 0 rgba(77,35,193,1), 13px 5px 0 0 rgba(77,35,193,1), 14px 5px 0 0 rgba(77,35,193,1), 15px 5px 0 0 rgba(77,35,193,1), 16px 5px 0 0 rgba(77,35,193,1), 19px 5px 0 0 rgba(77,35,193,1), 20px 5px 0 0 rgba(77,35,193,1), 1px 6px 0 0 rgba(77,35,193,1), 2px 6px 0 0 rgba(77,35,193,1), 5px 6px 0 0 rgba(77,35,193,1), 6px 6px 0 0 rgba(77,35,193,1), 7px 6px 0 0 rgba(77,35,193,1), 8px 6px 0 0 rgba(77,35,193,1), 9px 6px 0 0 rgba(77,35,193,1), 10px 6px 0 0 rgba(77,35,193,1), 11px 6px 0 0 rgba(77,35,193,1), 12px 6px 0 0 rgba(77,35,193,1), 13px 6px 0 0 rgba(77,35,193,1), 14px 6px 0 0 rgba(77,35,193,1), 15px 6px 0 0 rgba(77,35,193,1), 16px 6px 0 0 rgba(77,35,193,1), 19px 6px 0 0 rgba(77,35,193,1), 20px 6px 0 0 rgba(77,35,193,1), 1px 7px 0 0 rgba(77,35,193,1), 2px 7px 0 0 rgba(77,35,193,1), 5px 7px 0 0 rgba(77,35,193,1), 6px 7px 0 0 rgba(77,35,193,1), 15px 7px 0 0 rgba(77,35,193,1), 16px 7px 0 0 rgba(77,35,193,1), 19px 7px 0 0 rgba(77,35,193,1), 20px 7px 0 0 rgba(77,35,193,1), 1px 8px 0 0 rgba(77,35,193,1), 2px 8px 0 0 rgba(77,35,193,1), 5px 8px 0 0 rgba(77,35,193,1), 6px 8px 0 0 rgba(77,35,193,1), 15px 8px 0 0 rgba(77,35,193,1), 16px 8px 0 0 rgba(77,35,193,1), 19px 8px 0 0 rgba(77,35,193,1), 20px 8px 0 0 rgba(77,35,193,1), 1px 9px 0 0 rgba(77,35,193,1), 2px 9px 0 0 rgba(77,35,193,1), 5px 9px 0 0 rgba(77,35,193,1), 6px 9px 0 0 rgba(77,35,193,1), 15px 9px 0 0 rgba(77,35,193,1), 16px 9px 0 0 rgba(77,35,193,1), 19px 9px 0 0 rgba(77,35,193,1), 20px 9px 0 0 rgba(77,35,193,1), 1px 10px 0 0 rgba(77,35,193,1), 2px 10px 0 0 rgba(77,35,193,1), 5px 10px 0 0 rgba(77,35,193,1), 6px 10px 0 0 rgba(77,35,193,1), 15px 10px 0 0 rgba(77,35,193,1), 16px 10px 0 0 rgba(77,35,193,1), 19px 10px 0 0 rgba(77,35,193,1), 20px 10px 0 0 rgba(77,35,193,1), 1px 11px 0 0 rgba(77,35,193,1), 2px 11px 0 0 rgba(77,35,193,1), 5px 11px 0 0 rgba(77,35,193,1), 6px 11px 0 0 rgba(77,35,193,1), 15px 11px 0 0 rgba(77,35,193,1), 16px 11px 0 0 rgba(77,35,193,1), 19px 11px 0 0 rgba(77,35,193,1), 20px 11px 0 0 rgba(77,35,193,1), 1px 12px 0 0 rgba(77,35,193,1), 2px 12px 0 0 rgba(77,35,193,1), 5px 12px 0 0 rgba(77,35,193,1), 6px 12px 0 0 rgba(77,35,193,1), 15px 12px 0 0 rgba(77,35,193,1), 16px 12px 0 0 rgba(77,35,193,1), 19px 12px 0 0 rgba(77,35,193,1), 20px 12px 0 0 rgba(77,35,193,1), 1px 13px 0 0 rgba(77,35,193,1), 2px 13px 0 0 rgba(77,35,193,1), 5px 13px 0 0 rgba(77,35,193,1), 6px 13px 0 0 rgba(77,35,193,1), 15px 13px 0 0 rgba(77,35,193,1), 16px 13px 0 0 rgba(77,35,193,1), 19px 13px 0 0 rgba(77,35,193,1), 20px 13px 0 0 rgba(77,35,193,1), 1px 14px 0 0 rgba(77,35,193,1), 2px 14px 0 0 rgba(77,35,193,1), 5px 14px 0 0 rgba(77,35,193,1), 6px 14px 0 0 rgba(77,35,193,1), 15px 14px 0 0 rgba(77,35,193,1), 16px 14px 0 0 rgba(77,35,193,1), 19px 14px 0 0 rgba(77,35,193,1), 20px 14px 0 0 rgba(77,35,193,1), 1px 15px 0 0 rgba(77,35,193,1), 2px 15px 0 0 rgba(77,35,193,1), 5px 15px 0 0 rgba(77,35,193,1), 6px 15px 0 0 rgba(77,35,193,1), 7px 15px 0 0 rgba(77,35,193,1), 8px 15px 0 0 rgba(77,35,193,1), 9px 15px 0 0 rgba(77,35,193,1), 10px 15px 0 0 rgba(77,35,193,1), 11px 15px 0 0 rgba(77,35,193,1), 12px 15px 0 0 rgba(77,35,193,1), 13px 15px 0 0 rgba(77,35,193,1), 14px 15px 0 0 rgba(77,35,193,1), 15px 15px 0 0 rgba(77,35,193,1), 16px 15px 0 0 rgba(77,35,193,1), 19px 15px 0 0 rgba(77,35,193,1), 20px 15px 0 0 rgba(77,35,193,1), 1px 16px 0 0 rgba(77,35,193,1), 2px 16px 0 0 rgba(77,35,193,1), 5px 16px 0 0 rgba(77,35,193,1), 6px 16px 0 0 rgba(77,35,193,1), 7px 16px 0 0 rgba(77,35,193,1), 8px 16px 0 0 rgba(77,35,193,1), 9px 16px 0 0 rgba(77,35,193,1), 10px 16px 0 0 rgba(77,35,193,1), 11px 16px 0 0 rgba(77,35,193,1), 12px 16px 0 0 rgba(77,35,193,1), 13px 16px 0 0 rgba(77,35,193,1), 14px 16px 0 0 rgba(77,35,193,1), 15px 16px 0 0 rgba(77,35,193,1), 16px 16px 0 0 rgba(77,35,193,1), 19px 16px 0 0 rgba(77,35,193,1), 20px 16px 0 0 rgba(77,35,193,1), 1px 17px 0 0 rgba(77,35,193,1), 2px 17px 0 0 rgba(77,35,193,1), 19px 17px 0 0 rgba(77,35,193,1), 20px 17px 0 0 rgba(77,35,193,1), 1px 18px 0 0 rgba(77,35,193,1), 2px 18px 0 0 rgba(77,35,193,1), 19px 18px 0 0 rgba(77,35,193,1), 20px 18px 0 0 rgba(77,35,193,1), 1px 19px 0 0 rgba(77,35,193,1), 2px 19px 0 0 rgba(77,35,193,1), 3px 19px 0 0 rgba(77,35,193,1), 4px 19px 0 0 rgba(77,35,193,1), 5px 19px 0 0 rgba(77,35,193,1), 6px 19px 0 0 rgba(77,35,193,1), 7px 19px 0 0 rgba(77,35,193,1), 8px 19px 0 0 rgba(77,35,193,1), 9px 19px 0 0 rgba(77,35,193,1), 10px 19px 0 0 rgba(77,35,193,1), 11px 19px 0 0 rgba(77,35,193,1), 12px 19px 0 0 rgba(77,35,193,1), 13px 19px 0 0 rgba(77,35,193,1), 14px 19px 0 0 rgba(77,35,193,1), 15px 19px 0 0 rgba(77,35,193,1), 16px 19px 0 0 rgba(77,35,193,1), 17px 19px 0 0 rgba(77,35,193,1), 18px 19px 0 0 rgba(77,35,193,1), 19px 19px 0 0 rgba(77,35,193,1), 20px 19px 0 0 rgba(77,35,193,1), 1px 20px 0 0 rgba(77,35,193,1), 2px 20px 0 0 rgba(77,35,193,1), 3px 20px 0 0 rgba(77,35,193,1), 4px 20px 0 0 rgba(77,35,193,1), 5px 20px 0 0 rgba(77,35,193,1), 6px 20px 0 0 rgba(77,35,193,1), 7px 20px 0 0 rgba(77,35,193,1), 8px 20px 0 0 rgba(77,35,193,1), 9px 20px 0 0 rgba(77,35,193,1), 10px 20px 0 0 rgba(77,35,193,1), 11px 20px 0 0 rgba(77,35,193,1), 12px 20px 0 0 rgba(77,35,193,1), 13px 20px 0 0 rgba(77,35,193,1), 14px 20px 0 0 rgba(77,35,193,1), 15px 20px 0 0 rgba(77,35,193,1), 16px 20px 0 0 rgba(77,35,193,1), 17px 20px 0 0 rgba(77,35,193,1), 18px 20px 0 0 rgba(77,35,193,1), 19px 20px 0 0 rgba(77,35,193,1), 20px 20px 0 0 rgba(77,35,193,1);
-  height: 1px;
-  width: 1px;
-}
-
-.close-button {
-  box-shadow: 1px 1px 0 0 rgba(77,35,193,1), 2px 1px 0 0 rgba(77,35,193,1), 3px 1px 0 0 rgba(77,35,193,1), 4px 1px 0 0 rgba(77,35,193,1), 5px 1px 0 0 rgba(77,35,193,1), 6px 1px 0 0 rgba(77,35,193,1), 7px 1px 0 0 rgba(77,35,193,1), 8px 1px 0 0 rgba(77,35,193,1), 9px 1px 0 0 rgba(77,35,193,1), 10px 1px 0 0 rgba(77,35,193,1), 11px 1px 0 0 rgba(77,35,193,1), 12px 1px 0 0 rgba(77,35,193,1), 13px 1px 0 0 rgba(77,35,193,1), 14px 1px 0 0 rgba(77,35,193,1), 15px 1px 0 0 rgba(77,35,193,1), 16px 1px 0 0 rgba(77,35,193,1), 17px 1px 0 0 rgba(77,35,193,1), 18px 1px 0 0 rgba(77,35,193,1), 19px 1px 0 0 rgba(77,35,193,1), 20px 1px 0 0 rgba(77,35,193,1), 1px 2px 0 0 rgba(77,35,193,1), 2px 2px 0 0 rgba(77,35,193,1), 3px 2px 0 0 rgba(77,35,193,1), 4px 2px 0 0 rgba(77,35,193,1), 5px 2px 0 0 rgba(77,35,193,1), 6px 2px 0 0 rgba(77,35,193,1), 7px 2px 0 0 rgba(77,35,193,1), 8px 2px 0 0 rgba(77,35,193,1), 9px 2px 0 0 rgba(77,35,193,1), 10px 2px 0 0 rgba(77,35,193,1), 11px 2px 0 0 rgba(77,35,193,1), 12px 2px 0 0 rgba(77,35,193,1), 13px 2px 0 0 rgba(77,35,193,1), 14px 2px 0 0 rgba(77,35,193,1), 15px 2px 0 0 rgba(77,35,193,1), 16px 2px 0 0 rgba(77,35,193,1), 17px 2px 0 0 rgba(77,35,193,1), 18px 2px 0 0 rgba(77,35,193,1), 19px 2px 0 0 rgba(77,35,193,1), 20px 2px 0 0 rgba(77,35,193,1), 1px 3px 0 0 rgba(77,35,193,1), 2px 3px 0 0 rgba(77,35,193,1), 3px 3px 0 0 rgba(77,35,193,1), 4px 3px 0 0 rgba(77,35,193,1), 17px 3px 0 0 rgba(77,35,193,1), 18px 3px 0 0 rgba(77,35,193,1), 19px 3px 0 0 rgba(77,35,193,1), 20px 3px 0 0 rgba(77,35,193,1), 1px 4px 0 0 rgba(77,35,193,1), 2px 4px 0 0 rgba(77,35,193,1), 3px 4px 0 0 rgba(77,35,193,1), 4px 4px 0 0 rgba(77,35,193,1), 17px 4px 0 0 rgba(77,35,193,1), 18px 4px 0 0 rgba(77,35,193,1), 19px 4px 0 0 rgba(77,35,193,1), 20px 4px 0 0 rgba(77,35,193,1), 1px 5px 0 0 rgba(77,35,193,1), 2px 5px 0 0 rgba(77,35,193,1), 5px 5px 0 0 rgba(77,35,193,1), 6px 5px 0 0 rgba(77,35,193,1), 15px 5px 0 0 rgba(77,35,193,1), 16px 5px 0 0 rgba(77,35,193,1), 19px 5px 0 0 rgba(77,35,193,1), 20px 5px 0 0 rgba(77,35,193,1), 1px 6px 0 0 rgba(77,35,193,1), 2px 6px 0 0 rgba(77,35,193,1), 5px 6px 0 0 rgba(77,35,193,1), 6px 6px 0 0 rgba(77,35,193,1), 15px 6px 0 0 rgba(77,35,193,1), 16px 6px 0 0 rgba(77,35,193,1), 19px 6px 0 0 rgba(77,35,193,1), 20px 6px 0 0 rgba(77,35,193,1), 1px 7px 0 0 rgba(77,35,193,1), 2px 7px 0 0 rgba(77,35,193,1), 7px 7px 0 0 rgba(77,35,193,1), 8px 7px 0 0 rgba(77,35,193,1), 13px 7px 0 0 rgba(77,35,193,1), 14px 7px 0 0 rgba(77,35,193,1), 19px 7px 0 0 rgba(77,35,193,1), 20px 7px 0 0 rgba(77,35,193,1), 1px 8px 0 0 rgba(77,35,193,1), 2px 8px 0 0 rgba(77,35,193,1), 7px 8px 0 0 rgba(77,35,193,1), 8px 8px 0 0 rgba(77,35,193,1), 13px 8px 0 0 rgba(77,35,193,1), 14px 8px 0 0 rgba(77,35,193,1), 19px 8px 0 0 rgba(77,35,193,1), 20px 8px 0 0 rgba(77,35,193,1), 1px 9px 0 0 rgba(77,35,193,1), 2px 9px 0 0 rgba(77,35,193,1), 9px 9px 0 0 rgba(77,35,193,1), 10px 9px 0 0 rgba(77,35,193,1), 11px 9px 0 0 rgba(77,35,193,1), 12px 9px 0 0 rgba(77,35,193,1), 19px 9px 0 0 rgba(77,35,193,1), 20px 9px 0 0 rgba(77,35,193,1), 1px 10px 0 0 rgba(77,35,193,1), 2px 10px 0 0 rgba(77,35,193,1), 9px 10px 0 0 rgba(77,35,193,1), 10px 10px 0 0 rgba(77,35,193,1), 11px 10px 0 0 rgba(77,35,193,1), 12px 10px 0 0 rgba(77,35,193,1), 19px 10px 0 0 rgba(77,35,193,1), 20px 10px 0 0 rgba(77,35,193,1), 1px 11px 0 0 rgba(77,35,193,1), 2px 11px 0 0 rgba(77,35,193,1), 9px 11px 0 0 rgba(77,35,193,1), 10px 11px 0 0 rgba(77,35,193,1), 11px 11px 0 0 rgba(77,35,193,1), 12px 11px 0 0 rgba(77,35,193,1), 19px 11px 0 0 rgba(77,35,193,1), 20px 11px 0 0 rgba(77,35,193,1), 1px 12px 0 0 rgba(77,35,193,1), 2px 12px 0 0 rgba(77,35,193,1), 9px 12px 0 0 rgba(77,35,193,1), 10px 12px 0 0 rgba(77,35,193,1), 11px 12px 0 0 rgba(77,35,193,1), 12px 12px 0 0 rgba(77,35,193,1), 19px 12px 0 0 rgba(77,35,193,1), 20px 12px 0 0 rgba(77,35,193,1), 1px 13px 0 0 rgba(77,35,193,1), 2px 13px 0 0 rgba(77,35,193,1), 7px 13px 0 0 rgba(77,35,193,1), 8px 13px 0 0 rgba(77,35,193,1), 13px 13px 0 0 rgba(77,35,193,1), 14px 13px 0 0 rgba(77,35,193,1), 19px 13px 0 0 rgba(77,35,193,1), 20px 13px 0 0 rgba(77,35,193,1), 1px 14px 0 0 rgba(77,35,193,1), 2px 14px 0 0 rgba(77,35,193,1), 7px 14px 0 0 rgba(77,35,193,1), 8px 14px 0 0 rgba(77,35,193,1), 13px 14px 0 0 rgba(77,35,193,1), 14px 14px 0 0 rgba(77,35,193,1), 19px 14px 0 0 rgba(77,35,193,1), 20px 14px 0 0 rgba(77,35,193,1), 1px 15px 0 0 rgba(77,35,193,1), 2px 15px 0 0 rgba(77,35,193,1), 5px 15px 0 0 rgba(77,35,193,1), 6px 15px 0 0 rgba(77,35,193,1), 15px 15px 0 0 rgba(77,35,193,1), 16px 15px 0 0 rgba(77,35,193,1), 19px 15px 0 0 rgba(77,35,193,1), 20px 15px 0 0 rgba(77,35,193,1), 1px 16px 0 0 rgba(77,35,193,1), 2px 16px 0 0 rgba(77,35,193,1), 5px 16px 0 0 rgba(77,35,193,1), 6px 16px 0 0 rgba(77,35,193,1), 15px 16px 0 0 rgba(77,35,193,1), 16px 16px 0 0 rgba(77,35,193,1), 19px 16px 0 0 rgba(77,35,193,1), 20px 16px 0 0 rgba(77,35,193,1), 1px 17px 0 0 rgba(77,35,193,1), 2px 17px 0 0 rgba(77,35,193,1), 3px 17px 0 0 rgba(77,35,193,1), 4px 17px 0 0 rgba(77,35,193,1), 17px 17px 0 0 rgba(77,35,193,1), 18px 17px 0 0 rgba(77,35,193,1), 19px 17px 0 0 rgba(77,35,193,1), 20px 17px 0 0 rgba(77,35,193,1), 1px 18px 0 0 rgba(77,35,193,1), 2px 18px 0 0 rgba(77,35,193,1), 3px 18px 0 0 rgba(77,35,193,1), 4px 18px 0 0 rgba(77,35,193,1), 17px 18px 0 0 rgba(77,35,193,1), 18px 18px 0 0 rgba(77,35,193,1), 19px 18px 0 0 rgba(77,35,193,1), 20px 18px 0 0 rgba(77,35,193,1), 1px 19px 0 0 rgba(77,35,193,1), 2px 19px 0 0 rgba(77,35,193,1), 3px 19px 0 0 rgba(77,35,193,1), 4px 19px 0 0 rgba(77,35,193,1), 5px 19px 0 0 rgba(77,35,193,1), 6px 19px 0 0 rgba(77,35,193,1), 7px 19px 0 0 rgba(77,35,193,1), 8px 19px 0 0 rgba(77,35,193,1), 9px 19px 0 0 rgba(77,35,193,1), 10px 19px 0 0 rgba(77,35,193,1), 11px 19px 0 0 rgba(77,35,193,1), 12px 19px 0 0 rgba(77,35,193,1), 13px 19px 0 0 rgba(77,35,193,1), 14px 19px 0 0 rgba(77,35,193,1), 15px 19px 0 0 rgba(77,35,193,1), 16px 19px 0 0 rgba(77,35,193,1), 17px 19px 0 0 rgba(77,35,193,1), 18px 19px 0 0 rgba(77,35,193,1), 19px 19px 0 0 rgba(77,35,193,1), 20px 19px 0 0 rgba(77,35,193,1), 1px 20px 0 0 rgba(77,35,193,1), 2px 20px 0 0 rgba(77,35,193,1), 3px 20px 0 0 rgba(77,35,193,1), 4px 20px 0 0 rgba(77,35,193,1), 5px 20px 0 0 rgba(77,35,193,1), 6px 20px 0 0 rgba(77,35,193,1), 7px 20px 0 0 rgba(77,35,193,1), 8px 20px 0 0 rgba(77,35,193,1), 9px 20px 0 0 rgba(77,35,193,1), 10px 20px 0 0 rgba(77,35,193,1), 11px 20px 0 0 rgba(77,35,193,1), 12px 20px 0 0 rgba(77,35,193,1), 13px 20px 0 0 rgba(77,35,193,1), 14px 20px 0 0 rgba(77,35,193,1), 15px 20px 0 0 rgba(77,35,193,1), 16px 20px 0 0 rgba(77,35,193,1), 17px 20px 0 0 rgba(77,35,193,1), 18px 20px 0 0 rgba(77,35,193,1), 19px 20px 0 0 rgba(77,35,193,1), 20px 20px 0 0 rgba(77,35,193,1);
-  height: 1px;
-  width: 1px;
+.controls-right {
+    padding-right: 3px;
 }
 
 .decorative {
-  height: 9px;
-  width: 36px;
-  margin-top: 5px;
-  margin-bottom: -8px;
   margin-left: -2px;
+  padding-top: 6px; /* 2+4 to compensate for outline */
 }
 </style>

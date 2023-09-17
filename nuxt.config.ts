@@ -9,5 +9,12 @@ export default defineNuxtConfig({
   ssr: false,
   alias: {
     "~": path.resolve(__dirname),
+  },
+  vite: {
+    vue: {
+      script: {
+        defineModel: true,
+      }
+    }
   }
 })

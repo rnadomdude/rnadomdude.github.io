@@ -16,6 +16,7 @@
   "dependencies": {
     "@fontsource/dotgothic16": "^5.0.11",
     "@pinia/nuxt": "^0.4.11",
+    "@vueuse/components": "^10.4.1",
     "@vueuse/core": "^10.4.1",
     "pinia": "^2.1.6"
   }

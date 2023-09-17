@@ -12,12 +12,10 @@ const windows = useWindows();
       <source src="/femcel.mp4">
     </video>
 
-    <img class="bgImage" src="/tiledbg.svg" />
-
     <div class="main">
       <ClientOnly>
         <MainWindow />
-        <BaseWindow v-if="windows.about" :initial_x="32" :initial_y="32">
+        <BaseWindow visibility="windows.about" :initial_x="32" :initial_y="32">
           Lorem ipsum dolor sit amet,
           <div>
             consectetur adipiscing elit,
@@ -38,18 +36,6 @@ const windows = useWindows();
 a {
   text-decoration: none;
   max-width: 100vw;
-}
-
-.bgImage {
-  object-fit: cover;
-  z-index: -2;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
 }
 
 .bgVideo {
@@ -100,9 +86,9 @@ a {
   display: none;
 }
 
-#about-checkbox:checked+#about-window {
+/* #about-checkbox:checked+#about-window {
   display: block;
-}
+} */
 
 .main {
   height: 100vh;

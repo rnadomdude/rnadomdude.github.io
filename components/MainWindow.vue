@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useWindowSize } from '@vueuse/core';
+import { useDraggable, useWindowSize } from '@vueuse/core';
 import {useWindows} from '~/stores/window_states';
+import { UseDraggable } from '@vueuse/components';
 
 const { width, height } = useWindowSize()
 
@@ -12,10 +13,12 @@ let windows = useWindows();
 console.log(width1, height1)
 
 function showAbout() {windows.about = !windows.about}
+
+// let visibility = defineModel<Boolean>({default: true});
 </script>
 
 <template>
-    <BaseWindow :initial_x=width1 :initial_y=height1>
+    <BaseWindow :initial_x=width1 :initial_y=height1 :visibility="true">
         <label class="local-link" @click="showAbout"> About </label>
         <div class="local-link"></div>
         <a class="link" href="https://github.com/rnadomdude" title="heheheha" target="_blank"> Github </a>
@@ -27,3 +30,21 @@ function showAbout() {windows.about = !windows.about}
         </div>
     </BaseWindow>
 </template>
+
+<style>
+
+.window {
+  margin: auto 0;
+  padding: 6px;
+  padding-top: 0px;
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--aqua);
+  border: var(--purple) 2px solid;
+  box-shadow: 5px 5px 0 rgba(77, 35, 139, 0.4);
+  /* box-sizing: border-box; */
+}
+
+</style>
