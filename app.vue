@@ -2,6 +2,7 @@
 import '@fontsource/dotgothic16';
 import './app.css';
 import { useWindows } from '~/stores/window_states';
+import Footer from './components/Footer.vue';
 
 const windows = useWindows();
 </script>
@@ -16,7 +17,7 @@ const windows = useWindows();
       <ClientOnly>
         <MainWindow />
         <BaseWindow visibility="windows.about" :initial_x="32" :initial_y="32">
-          Lorem ipsum dolor sit amet,
+          Lorem ipsum dolor sit amet, 
           <div>
             consectetur adipiscing elit,
           </div>
@@ -28,6 +29,7 @@ const windows = useWindows();
           </div>
         </BaseWindow>
       </ClientOnly>
+      <Footer></Footer>
     </div>
   </div>
 </template>
