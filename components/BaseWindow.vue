@@ -36,7 +36,7 @@ let visibility = defineModel<Boolean>({default: true});
                 <slot></slot>
             </div>
             <div>
-                <img class="decorative" src="/tplink_deco.png" alt="my home router is the deco m5" draggable="false"/>
+                <img class="decorative" src="/tplink_deco.png" alt="i use the deco m5" draggable="false"/>
             </div>
         </div>
     </UseDraggable>
