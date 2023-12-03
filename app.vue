@@ -100,11 +100,6 @@ a {
   justify-content: center;
   font-family: 'DotGothic16';
   font-size: 2rem;
-  --purple: #4D23CD;
-  --aqua: #90F3E1;
-  --pink: #EFCFEF;
-  --darkerpink: #EAA0E7;
-  --offwhite: #FDF7FD;
 }
 
 #about-window {

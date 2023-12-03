@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDraggable, useWindowSize } from '@vueuse/core';
-import {useWindows} from '~/stores/window_states';
+import { useWindows } from '~/stores/window_states';
 import { UseDraggable } from '@vueuse/components';
 
 const { width, height } = useWindowSize()
@@ -19,14 +19,14 @@ function showAbout() {windows.about = !windows.about}
 
 <template>
     <BaseWindow :initial_x=width1 :initial_y=height1 :visibility="true">
-        <label class="local-link" @click="showAbout"> About </label>
-        <div class="local-link"></div>
-        <a class="link" href="https://github.com/rnadomdude" title="heheheha" target="_blank"> Github </a>
-        <div>
+        <div class="vstack">
+            <a class="local-link" @click="showAbout"> About </a>
+            <a class="local-link" @click="showAbout"> About </a>
+            <a class="local-link" @click="showAbout"> About </a>
+            <a class="local-link" @click="showAbout"> About </a>
+            <a class="link" href="https://github.com/rnadomdude" title="heheheha" target="_blank"> Github </a>
             <a class="link" href="https://osu.ppy.sh/users/11537247" title="clicking circles" target="_blank"> Osu </a>
-        </div>
-        <div>
-            <a class="link" href="https://steamcommunity.com/id/12302003b/" title="fumo" target="_blank">(⁠~⁠_⁠~⁠メ⁠)</a>
+            <a class="link" href="https://steamcommunity.com/id/12302003b/" title="fumo" target="_blank">(~_~メ⁠)</a>
         </div>
     </BaseWindow>
 </template>

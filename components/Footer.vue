@@ -1,21 +1,20 @@
 <script setup lang="ts">
 
 import { ref } from 'vue'
-import { useDateFormat, useNow } from '@vueuse/core'
+import { useDateFormat, useNow, onClickOutside } from '@vueuse/core'
 
-const formatter = ref('HH:mm')
-const time_str = useDateFormat(useNow(), formatter, { locales: 'en-US' }) 
+const formatter = ref('HH:mm');
+const time_str = useDateFormat(useNow(), formatter, { locales: 'en-US' });
+const start_open = ref<boolean>(false);
+const menu = ref<HTMLElement | null>(null);
 
-function dropdownClick() {
-    document.getElementById("ligma")?.classList.toggle("show");
-}
-
+onClickOutside(menu, () => { start_open.value = false });
 </script>
 
 <template>
     <footer>
         <div class="taskbar-button">
-            <div id="ligma" class="taskbar-item-border dropup start-button" @click="dropdownClick()">
+            <div ref="menu" class="taskbar-item-border dropup" :class="{ show: start_open, borderinverted: start_open }" @click="start_open = !start_open">
                 <div class="flexy">
                     <div class="dropup-content">
                         <div class="flexy-sideways">
@@ -31,8 +30,7 @@ function dropdownClick() {
                         </div>
                     </div>
                     <img src="/winlogo.png" alt="fnaf" draggable="false">
-                    <div>start
-                    </div>
+                    <div>start</div>
                 </div>
             </div>
             
@@ -102,17 +100,16 @@ footer {
     display: block;
 }
 
-.show .start-button {
-    display: block;
+.borderinverted.taskbar-item-border {
     padding: 0 3px;
     border: 2px solid var(--offwhite);
     border-left-color: var(--lightpurple);
     border-top-color: var(--lightpurple);
 }
 
-
 .taskbar-button {
     display: block;
+    user-select: none;
 }
 
 .taskbar-button-right {

@@ -1,0 +1,12 @@
+- [ ] make windows fixed size after init
+- [ ] add a stack to keep track of last focused windows
+- [ ] add a stack to keep track of open windows
+- [ ] z-index manager for windows
+- [ ] make window buttons work
+- [ ] taskbar window names
+- [ ] close window
+- [ ] minimize window
+- [ ] maximize window
+- [ ] make windows resizable
+- [ ] start menu buttons lead to different pages
+- [ ] different color scheme

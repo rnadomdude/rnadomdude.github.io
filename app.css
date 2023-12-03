@@ -1,3 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --purple: #4D23CD;
+    --aqua: #90F3E1;
+    --pink: #EFCFEF;
+    --darkerpink: #EAA0E7;
+    --offwhite: #FDF7FD;
+}
+
 body {
     min-height: 100vh;
     color: var(--color-text);
@@ -13,4 +26,43 @@ body {
     margin: 0;
     background-image: url("/tile2x.png");
     image-rendering: pixelated;
-}  
+    scrollbar-color: var(--darkerpink) var(--aqua);
+}
+
+.hstack {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+}
+
+.vstack {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-self: stretch;
+}
+
+.gap-0 {
+    gap: 0 !important;
+}
+
+.gap-1 {
+    gap: 0.25rem !important;
+}
+
+.gap-2 {
+    gap: 0.5rem !important;
+}
+
+.gap-3 {
+    gap: 1rem !important;
+}
+
+.gap-4 {
+    gap: 1.5rem !important;
+}
+
+.gap-5 {
+    gap: 3rem !important;
+}
